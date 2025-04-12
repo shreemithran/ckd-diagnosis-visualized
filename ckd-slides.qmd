@@ -1,0 +1,28 @@
+---
+title: "Predicting Chronic Kidney Disease with Machine Learning"
+author: "Shreemithra Naveen"
+format: revealjs
+jupyter: python3
+theme: solarized
+---
+
+## 🧠 Introduction
+
+- Chronic Kidney Disease (CKD) is a major global health issue.
+- Early detection can improve outcomes.
+- This project applies ML and visualization to classify CKD using clinical data.
+
+---
+
+## 📊 Dataset Overview
+
+- Sourced from [Kaggle CKD Dataset](https://www.kaggle.com/datasets/mansoordaku/ckdisease)
+- 400 samples, 26 clinical features
+- Features: blood pressure, sugar, creatinine, hemoglobin, etc.
+
+
+```{python}
+import pandas as pd
+df = pd.read_csv("data.csv")
+df['class'] = df['class'].map({'ckd': 'CKD', 'notckd': 'Non-CKD'})
+df.head()
