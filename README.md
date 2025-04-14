@@ -36,6 +36,6 @@ How effectively can ML models predict CKD using clinical indicators, and how can
 - pandas / numpy
 
 ## Contributors
-Shreemithra Naveen
-Sai Laasya Gorantla
+@Shreemithra Naveen
+@Sai Laasya Gorantla
 
