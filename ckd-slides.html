@@ -10,8 +10,9 @@
 <link href="ckd-slides_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.5.56">
 
-  <meta name="author" content="Shreemithra Naveen">
-  <title>Predicting Chronic Kidney Disease with Machine Learning</title>
+  <meta name="author" content="Shreemithra Naveen and Sai Laasya Gorantla">
+  <meta name="dcterms.date" content="2025-04-01">
+  <title>Predicting Chronic Kidney Disease</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -325,40 +326,103 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Predicting Chronic Kidney Disease with Machine Learning</h1>
+<section id="title-slide" data-background-image="images/background_image1.png" data-background-opacity="0.8" data-background-size="cover" class="quarto-title-block center">
+  <h1 class="title">Predicting Chronic Kidney Disease</h1>
+  <p class="subtitle">with Machine Learning &amp; Visual Analytics</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Shreemithra Naveen 
+Shreemithra Naveen and Sai Laasya Gorantla 
 </div>
 </div>
 </div>
 
+  <p class="date">2025-04-01</p>
 </section>
-<section id="introduction" class="slide level2">
-<h2>🧠 Introduction</h2>
+<section id="project-overview" class="slide level2 center">
+<h2>Project Overview</h2>
 <ul>
-<li>Chronic Kidney Disease (CKD) is a major global health issue.</li>
-<li>Early detection can improve outcomes.</li>
-<li>This project applies ML and visualization to classify CKD using clinical data.</li>
+<li>Over <strong>850 million people worldwide</strong> have kidney diseases — more than diabetes and cancer combined.</li>
+<li><strong>1 in 10 people globally</strong> are affected by CKD.</li>
+<li>CKD is the <strong>8th leading cause of death</strong> worldwide (WHO, 2020).</li>
 </ul>
+<p><span style="font-size: 0.65em; color: #555;"> Source: World Health Organization (WHO), 2020 – <a href="https://www.who.int/news-room/fact-sheets/detail/kidney-disease">Global Facts on CKD</a> </span></p>
 </section>
-<section id="dataset-overview" class="slide level2">
-<h2>📊 Dataset Overview</h2>
+<section>
+<section id="silent-dangerous" class="title-slide slide level1 center">
+<h1>Silent &amp; Dangerous</h1>
+
+</section>
+<section class="slide level2">
+
+<!-- Upper half text -->
+<div style="text-align: center; font-size: 0.7em; margin-bottom: 2vh;">
+<p>
+CKD often has no symptoms in early stages — making it a “silent disease.”
+</p>
+<p>
+By the time symptoms appear, <strong>irreversible damage</strong> may have occurred.
+</p>
+</div>
+<!-- lower half text -->
+<div class="columns">
+<div class="column" style="width:50%;">
+<div id="dde129e8" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="ckd-slides_files/figure-revealjs/cell-5-output-1.png"></p>
+</figure>
+</div>
+</div>
+</div>
+<p style="text-align: center; font-size: 0.50em; color: #444;">
+<b>U.S. Perspective:</b><br> 9 out of 10 people with CKD are unaware they have it.<br> <em>— American Kidney Fund</em>
+</p>
+</div><div class="column" style="width:50%;">
+<div id="cc34d1b1" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="ckd-slides_files/figure-revealjs/cell-6-output-1.png"></p>
+</figure>
+</div>
+</div>
+</div>
+<p style="text-align: center; font-size: 0.50em; color: #444;">
+<b>Global Perspective:</b><br> 72.5% of patients were diagnosed at the terminal stage,<br>
+and 75% had never heard of CKD before hospitalization.<br> <em>— Brazzaville Hospital Study</em>
+</p>
+</div></div>
+<div style="text-align: center; font-size: 0.6em; color: #666; margin-top: 1em;">
+<p>Source: <a href="https://www.kidneyfund.org" target="_blank">AKF</a> · <a href="https://indexmedicus.afro.who.int/iah/fulltext/Chronic%20Renal%20Failure..." target="_blank">Brazzaville Study</a></p>
+</div>
+</section></section>
+<section>
+<section id="why-early-detection-matters" class="title-slide slide level1 center">
+<h1>Why Early Detection Matters</h1>
+
+</section>
+<section class="slide level2">
+
+<p>That’s why we decided to build a <strong>machine learning model</strong> to assist in <strong>early detection of CKD</strong>, even during routine checkups — helping patients become aware of their symptoms and risks <strong>before it’s too late</strong>.</p>
 <ul>
-<li>Sourced from <a href="https://www.kaggle.com/datasets/mansoordaku/ckdisease">Kaggle CKD Dataset</a></li>
-<li>400 samples, 26 clinical features</li>
-<li>Features: blood pressure, sugar, creatinine, hemoglobin, etc.</li>
+<li>Early detection enables:
+<ul>
+<li>Slowing or halting disease progression<br>
+</li>
+<li>Improved quality of life<br>
+</li>
+<li>Reduced need for dialysis or transplant</li>
+</ul></li>
 </ul>
-<p>import pandas as pd df = pd.read_csv(“data.csv”) df[‘class’] = df[‘class’].map({‘ckd’: ‘CKD’, ‘notckd’: ‘Non-CKD’}) df.head()</p>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 
@@ -410,7 +474,7 @@ Shreemithra Naveen
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -515,14 +579,14 @@ Shreemithra Naveen
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'none',
+        transition: 'slide',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',
 
         // Transition style for full page slide backgrounds
         // (none/fade/slide/convex/concave/zoom)
-        backgroundTransition: 'none',
+        backgroundTransition: 'slide',
 
         // Number of slides away from the current that are visible
         viewDistance: 3,
