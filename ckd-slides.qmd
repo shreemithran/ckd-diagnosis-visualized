@@ -169,7 +169,7 @@ Source: World Health Organization (WHO), 2020 – <a href="https://www.who.int/n
 labels = ['Unaware of CKD', 'Aware of CKD']
 sizes = [90, 10]
 colors = ['#f4a261', '#2a9d8f']
-fig, ax = plt.subplots(figsize=(4, 4), facecolor='none')
+fig, ax = plt.subplots(figsize=(3.9, 3.9), facecolor='none')
 ax.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
 ax.set_facecolor('none')   
 plt.axis('equal')          
@@ -199,6 +199,7 @@ plt.axis('equal')
 plt.tight_layout()
 plt.show()
 ```
+
 <p style="text-align: center; font-size: 0.50em; color: #444;">
 <b>Global Perspective:</b><br>
 72.5% of patients were diagnosed at the terminal stage,  
@@ -209,7 +210,6 @@ and 75% had never heard of CKD before hospitalization.<br>
 :::
 
 :::
-
 
 <div style="text-align: center; font-size: 0.6em; color: #666; margin-top: 1em;">
   Source: 
@@ -229,7 +229,47 @@ That’s why we decided to build a **machine learning model** to assist in **ear
   - Reduced need for dialysis or transplant
 
 
+##  Dataset Overview {.center}
 
+- Dataset: Chronic Kidney Disease dataset from [Kaggle](https://www.kaggle.com/datasets/mansoordaku/ckdisease)
+- 400 patient records with 26 clinical features
+- Target variable: `class` → CKD or not CKD
 
+- Includes essential CKD indicators: albumin, creatinine, hemoglobin, BP
+- One of the few public datasets with complete labels + clinical features
+- Ideal for building a clear, interpretable ML model
+
+## Categorical Features in the Dataset
+
+<p style="font-size: 0.70em; text-align: center; color: #444;">
+This chart reveals how categorical variables like anemia, appetite, and diabetes are distributed across the patient records — helping us understand the clinical profiles common in CKD cases.
+</p>
+
+```{python}
+import warnings
+warnings.filterwarnings("ignore")
+
+categorical = categorical.drop(columns='class')
+
+sns.set_style("whitegrid")
+plt.rcParams['axes.facecolor'] = 'none'   
+plt.rcParams['figure.facecolor'] = 'none' 
+plt.figure(figsize=(20, 18))
+
+for i, col_name in enumerate(categorical.columns, start=1):
+    plt.subplot(5, 5, i)
+    sns.countplot(x=disease[col_name], hue=disease[col_name], palette="Set2", legend=False)
+    plt.title(col_name.replace("_", " ").capitalize(), fontsize= 16, fontweight='bold')
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.xlabel("")
+    plt.ylabel("Count", fontsize=12)
+
+plt.suptitle("Distribution of Categorical Features in CKD Dataset", fontsize=18, fontweight='bold', y=1.02)
+plt.subplots_adjust(hspace=0.7)
+plt.tight_layout()
+plt.show()
+
+```
 
 
