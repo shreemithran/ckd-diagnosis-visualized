@@ -30,6 +30,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="ckd-slides_files/libs/revealjs/dist/theme/quarto.css">
   <link href="ckd-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -408,7 +473,7 @@ That’s why we decided to build a <b>machine learning model</b> to assist in <b
 </section>
 <section id="dataset-overview" class="slide level2">
 <h2><span style="font-size: 0.8em;">Dataset Overview</span></h2>
-<p style="text-align: center; font-size: 0.60em; color: #444;">
+<p style="text-align: left; font-size: 0.60em; color: #444;">
 </p><ul>
 <li>Dataset: Chronic Kidney Disease dataset from <a href="https://www.kaggle.com/datasets/mansoordaku/ckdisease">Kaggle</a><br>
 <ul>
@@ -417,13 +482,9 @@ That’s why we decided to build a <b>machine learning model</b> to assist in <b
 </ul></li>
 </ul>
 <p></p>
-<p style="text-align: center; font-size: 0.40em; color: #444;">
-</p><ul>
-<li>Includes essential CKD indicators: albumin, creatinine, hemoglobin, BP<br></li>
-<li>One of the few public datasets with complete labels + clinical features<br></li>
-<li>Ideal for building a clear, interpretable ML model<br></li>
-</ul>
-<p></p>
+<p style="text-align: left; font-size: 0.90em; color: #444; margin: 0;">
+• Includes essential CKD indicators: albumin, creatinine, hemoglobin, BP<br> • One of the few public datasets with complete labels + clinical features<br> • Ideal for building a clear, interpretable ML model
+</p>
 </section>
 <section id="categorical-features-in-the-dataset" class="slide level2">
 <h2><span style="font-size: 0.8em;">Categorical Features in the Dataset</span></h2>
@@ -447,13 +508,206 @@ Common Observations from Routine Health Tests
 🔹 <strong>Sugar &amp; Albumin:</strong> Elevated blood sugar hints at diabetes risk. Increased albumin in urine (proteinuria) is an early CKD indicator.
 </p>
 </section>
+<section id="correlation-heatmap-of-clinical-variables" class="slide level2">
+<h2><span style="font-size: 0.8em;">Correlation Heatmap of Clinical Variables</span></h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div id="cell-heat-map" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="ckd-slides_files/figure-revealjs/heat-map-output-1.png" id="heat-map"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:45%;">
+<br>
+<div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
+<p style="font-size: 0.5em; text-align: left; color: #444;">
+This heatmap shows how different clinical variables are correlated with each other.
+</p>
+<p style="font-size: 0.5em; text-align: left;">
+<b>1. Hemoglobin, Packed Cell Volume, and Red Blood Cell Count</b> show strong positive correlations — reflecting their interconnected role in oxygen transport and anemia, common in CKD.
+</p>
+<p style="font-size: 0.5em; text-align: left;">
+<b>2. Serum Creatinine</b> is negatively correlated with <b>Sodium</b> and <b>Albumin</b>, indicating impaired kidney function affects electrolyte balance and protein retention.
+</p>
+</div>
+</div></div>
+</section>
 <section id="exploring-feature-relationships-in-ckd-patients" class="slide level2">
 <h2><span style="font-size: 0.8em;">Exploring Feature Relationships in CKD Patients </span></h2>
 <p style="font-size: 0.50em; text-align: center; color: #444;">
 These plots highlight clinical feature pairs that are strongly correlated and vary by CKD status.The separation of CKD vs non-CKD patients in these pairs reveals underlying clinical patterns that can support early detection and diagnosis.
 </p>
 
-<img data-src="ckd-slides_files/figure-revealjs/correlated-feature-pairs-output-1.png" id="correlated-feature-pairs" class="quarto-figure quarto-figure-center r-stretch"><div class="quarto-auto-generated-content">
+<img data-src="ckd-slides_files/figure-revealjs/correlated-feature-pairs-output-1.png" id="correlated-feature-pairs" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="building-a-machine-learning-model-for-ckd-prediction" class="slide level2">
+<h2><span style="font-size: 0.8em;">Building a Machine Learning Model for CKD Prediction</span></h2>
+<p style="font-size: 0.6em; text-align: left;">
+Based on our exploratory data analysis, we selected a focused set of features that showed strong correlation with CKD and had clinical relevance in early diagnosis.
+</p>
+<p style="font-size: 0.6em; text-align: left;">
+We define our modeling variables as:
+</p>
+<div id="x-y-display" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>X <span class="op">=</span> disease[[<span class="st">'red_blood_cell_count'</span>, <span class="st">'packed_cell_volume'</span>, <span class="st">'haemoglobin'</span>, <span class="st">'albumin'</span>, <span class="st">'specific_gravity'</span>]]</span>
+<span id="cb1-2"><a href=""></a>y <span class="op">=</span> disease[<span class="st">'class'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p style="font-size: 0.6em; text-align: left;">
+The objective is to build a simple, interpretable machine learning model that can assist in CKD detection using just these five features.
+</p>
+<div style="background-color: #e6f4ea; color: #1b5e20; padding: 10px 15px; font-size: 0.6em; border-left: 5px solid #2e7d32; border-radius: 8px;">
+<p>✅ Clinically meaningful features<br> ✅ Minimal but strong predictors<br> ✅ Useful in real-world check-ups<br> ✅ Balanced for interpretability</p>
+</div>
+</section>
+<section id="modeling-decisions-what-we-tried-why" class="slide level2">
+<h2><span style="font-size: 0.8em;">Modeling Decisions: What We Tried &amp; Why?</span></h2>
+<p style="font-size: 0.6em; text-align: left; color: #444;">
+We tested three key machine learning models to understand their strengths in detecting CKD using core clinical features:
+</p>
+<ul style="font-size: 0.6em; color: #444;">
+<li>
+<b>K-Nearest Neighbors (KNN):</b> Performed well and was simple to implement, but slightly sensitive to local data variations.
+</li>
+<li>
+<b>Decision Tree:</b> Showed high accuracy and was easy to interpret — a major advantage in clinical settings.
+</li>
+<li>
+<b>SVM (RBF Kernel):</b> Handled nonlinear patterns well but lacked transparency in how predictions were made.
+</li>
+</ul>
+<p style="font-size: 0.6em; text-align: left; color: #444;">
+From this, we learned that while all models had strengths, <b>Decision Tree</b> offered the best balance of performance and explainability for early CKD detection.
+</p>
+</section>
+<section id="model-comparison-accuracy-insights" class="slide level2">
+<h2><span style="font-size: 0.8em;">Model Comparison: Accuracy &amp; Insights</span></h2>
+<br>
+<pre style="font-size: 0.55em; text-align: left; background-color: #e6f4ea; padding: 8px 12px; border-radius: 5px; border: 1px solid #ccc; max-width: 600px; margin: 10px auto;">1 dtc = DecisionTreeClassifier(random_state=42)
+2 dtc.fit(X_train, y_train)
+</pre>
+<table style="font-size: 0.6em; margin: auto; border-collapse: collapse; width: 95%;">
+<thead>
+<tr style="background-color: #f0f0f0;">
+<th style="padding: 8px; border: 1px solid #ccc;">
+Model
+</th>
+<th style="padding: 8px; border: 1px solid #ccc;">
+Accuracy
+</th>
+<th style="padding: 8px; border: 1px solid #ccc;">
+Precision
+</th>
+<th style="padding: 8px; border: 1px solid #ccc;">
+Recall
+</th>
+<th style="padding: 8px; border: 1px solid #ccc;">
+F1-Score
+</th>
+<th style="padding: 8px; border: 1px solid #ccc;">
+Strengths
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="padding: 8px; border: 1px solid #ccc;">
+SVM (RBF Kernel)
+</td>
+<td style="padding: 8px; border: 1px solid #ccc;">
+91%
+</td>
+<td style="padding: 8px; border: 1px solid #ccc;">
+0.90
+</td>
+<td style="padding: 8px; border: 1px solid #ccc;">
+0.91
+</td>
+<td style="padding: 8px; border: 1px solid #ccc;">
+0.90
+</td>
+<td style="padding: 8px; border: 1px solid #ccc;">
+Handles non-linear patterns well
+</td>
+</tr>
+<tr>
+<td style="padding: 8px; border: 1px solid #ccc;">
+K-Nearest Neighbors
+</td>
+<td style="padding: 8px; border: 1px solid #ccc;">
+95%
+</td>
+<td style="padding: 8px; border: 1px solid #ccc;">
+0.94
+</td>
+<td style="padding: 8px; border: 1px solid #ccc;">
+0.95
+</td>
+<td style="padding: 8px; border: 1px solid #ccc;">
+0.95
+</td>
+<td style="padding: 8px; border: 1px solid #ccc;">
+Simple and effective with clear class boundaries
+</td>
+</tr>
+<tr style="background-color: #e8f5e9;">
+<td style="padding: 8px; border: 1px solid #ccc;">
+<b>Decision Tree </b>
+</td>
+<td style="padding: 8px; border: 1px solid #ccc;">
+<b>99%</b>
+</td>
+<td style="padding: 8px; border: 1px solid #ccc;">
+<b>0.99</b>
+</td>
+<td style="padding: 8px; border: 1px solid #ccc;">
+<b>0.98</b>
+</td>
+<td style="padding: 8px; border: 1px solid #ccc;">
+<b>0.99</b>
+</td>
+<td style="padding: 8px; border: 1px solid #ccc;">
+<b>Highly interpretable and accurate</b>
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+<div style="background-color: #e6f4ea; border-left: 5px solid #1b5e20; padding: 12px 16px; border-radius: 6px; width: fit-content; margin: auto;">
+<p style="font-size: 0.55em; text-align: center; color: #444; margin: 0;">
+Based on accuracy and interpretability, <b>Decision Tree</b> was chosen as our final model for early CKD detection.
+</p>
+</div>
+</section>
+<section id="confusion-matrix-knn-vs-decision-tree" class="slide level2">
+<h2><span style="font-size: 0.8em;">Confusion Matrix: KNN vs Decision Tree</span></h2>
+<p><br></p>
+
+<img data-src="ckd-slides_files/figure-revealjs/confusion-matrix-plot-output-1.png" id="confusion-matrix-plot" class="quarto-figure quarto-figure-center r-stretch"><p><br></p>
+<p style="font-size: 0.55em; text-align: center; color: #444;">
+The Decision Tree model shows fewer misclassifications and better separation between CKD and Non-CKD cases.
+</p>
+</section>
+<section id="thank-you" class="slide level2 center">
+<h2>Thank You!</h2>
+<p style="text-align: center; font-size: 1.3em; color: #2c3e50; font-weight: bold;">
+Early detection isn’t just a technical solution — it’s a human one.
+</p>
+<p style="text-align: center; font-size: 1em; color: #444;">
+Through this project, we explored how <strong>data-driven insights</strong> and <strong>machine learning</strong><br>
+can support timely diagnosis and improve patient outcomes in Chronic Kidney Disease.
+</p>
+<hr style="width: 60%; margin: 20px auto; border: 0.5px solid #ccc;">
+<p style="text-align: center; font-size: 0.95em; color: #555;">
+Have questions or feedback? We’d love to hear from you!
+</p>
+<p style="text-align: center; font-size: 0.85em; color: #888;">
+Presented by: <strong>Shreemithra Naveen</strong> &amp; <strong>Sai Laasya Gorantla</strong><br>
+<br> INFO 511 – University of Arizona | April 2025
+</p>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
