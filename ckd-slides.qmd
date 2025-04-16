@@ -2,11 +2,11 @@
 title: "Predicting Chronic Kidney Disease"
 subtitle: "with Machine Learning & Visual Analytics"
 author: "Shreemithra Naveen and Sai Laasya Gorantla"
-date: "April 2025"
+date: "17 April 2025"
 title-slide-attributes:
       data-background-image: images/background_image1.png
       data-background-size: cover
-      data-background-opacity: "0.8"
+      data-background-opacity: "0.6"
 theme: serif
 format:
   revealjs:    
@@ -38,7 +38,7 @@ from sklearn.tree import DecisionTreeClassifier
 ```
 
 ```{python}
-#| label: load-data 
+#| label: load-data-and-preprocessing
 #| include: false
 disease = pd.read_csv('kidney_disease.csv')
 
@@ -94,50 +94,6 @@ numerical_columns = disease.select_dtypes(exclude = 'object')
 #plt.show()
 ```
 
-```{python}
-#| include: false
-#| eval: false
-
-pairs = [
-    ('haemoglobin', 'packed_cell_volume'),
-    ('packed_cell_volume', 'red_blood_cell_count'),
-    ('haemoglobin', 'red_blood_cell_count'),
-    ('sugar', 'blood_glucose_random'),
-    ('blood_urea', 'red_blood_cell_count'),
-    ('blood_urea', 'haemoglobin'),
-    ('albumin', 'haemoglobin'),
-    ('serum_creatinine', 'sodium')
-]
-
-# Set a polished theme
-sns.set_theme(style="whitegrid", palette="viridis")
-
-# Number of plots
-n = len(pairs)
-rows = (n + 1) // 2
-
-# Create subplot grid
-plt.figure(figsize=(18, rows * 4))
-for i, (x, y) in enumerate(pairs, 1):
-    plt.subplot(rows, 3, i)
-    
-    # Only plot if both columns exist and have no missing values
-    if x in disease.columns and y in disease.columns:
-        sns.scatterplot(data=disease, x=x, y=y, hue='class', palette='Set1', alpha=0.8, s=60)
-        sns.regplot(data=disease, x=x, y=y, scatter=False, color='black', line_kws={"linewidth": 2, "linestyle": "--"})
-        
-        # Compute correlation for title
-        corr_val = disease[[x, y]].dropna().corr().iloc[0, 1]
-        plt.title(f"{x} vs {y} (r = {corr_val:.2f})", fontsize=12)
-        plt.xlabel(x)
-        plt.ylabel(y)
-
-plt.suptitle('CKD Dataset – Strongly Correlated Feature Pairs with Class Highlighting', fontsize=20, y=1.02)
-
-plt.tight_layout()
-plt.show()
-```
-
 
 ## Project Overview {.center}
 
@@ -166,6 +122,8 @@ Source: World Health Organization (WHO), 2020 – <a href="https://www.who.int/n
 ::: {.column width="50%"}
 
 ```{python}
+#| label: piechart-ckdvsnoncks
+
 labels = ['Unaware of CKD', 'Aware of CKD']
 sizes = [90, 10]
 colors = ['#f4a261', '#2a9d8f']
@@ -188,11 +146,13 @@ plt.show()
 ::: {.column width="50%"}
 
 ```{python}
+#| label: piechart-terminalstage
+
 labels = ['Terminal Stage', 'Early Stage']
 sizes = [72.5, 27.5]
 colors = ['#ba2f2f', '#87ceeb']
 
-fig, ax = plt.subplots(figsize=(5, 5), facecolor='none')
+fig, ax = plt.subplots(figsize=(4, 4), facecolor='none')
 ax.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
 ax.set_facecolor('none')
 plt.axis('equal')
@@ -218,42 +178,53 @@ and 75% had never heard of CKD before hospitalization.<br>
 </div>
 
 
-# Why Early Detection Matters { .center}
+#  <span style="font-size: 0.6em;">Why Early Detection Matters?</span>
 
-------------------------------------------------------------------------
-That’s why we decided to build a **machine learning model** to assist in **early detection of CKD**, even during routine checkups — helping patients become aware of their symptoms and risks **before it’s too late**.
+<p style="text-align: center; font-size: 0.70em; color: #444;">
+That’s why we decided to build a <b>machine learning model</b> to assist in <b>early detection of CKD</b>, even during routine checkups — helping patients become aware of their symptoms and risks <b>before it’s too late</b><br>
+</p>
 
-- Early detection enables:
-  - Slowing or halting disease progression  
-  - Improved quality of life  
-  - Reduced need for dialysis or transplant
+<p style="text-align: center; font-size: 0.60em; color: #444;">
+<b>Early detection enables:</b><br>
+  - Slowing or halting disease progression<br>
+  - Improved quality of life<br>
+  - Reduced need for dialysis or transplant<br>
+</p>
 
+---
 
-##  Dataset Overview {.center}
+##  <span style="font-size: 0.8em;">Dataset Overview</span>
 
-- Dataset: Chronic Kidney Disease dataset from [Kaggle](https://www.kaggle.com/datasets/mansoordaku/ckdisease)
-- 400 patient records with 26 clinical features
-- Target variable: `class` → CKD or not CKD
+<p style="text-align: center; font-size: 0.60em; color: #444;">
+    - Dataset: Chronic Kidney Disease dataset from [Kaggle](https://www.kaggle.com/datasets/mansoordaku/ckdisease)<br>
+    - 400 patient records with 26 clinical features<br>
+    - Target variable: `class` → CKD or not CKD<br>
+</p>
+<p style="text-align: center; font-size: 0.40em; color: #444;">
+- Includes essential CKD indicators: albumin, creatinine, hemoglobin, BP<br>
+- One of the few public datasets with complete labels + clinical features<br>
+- Ideal for building a clear, interpretable ML model<br>
+</p>
 
-- Includes essential CKD indicators: albumin, creatinine, hemoglobin, BP
-- One of the few public datasets with complete labels + clinical features
-- Ideal for building a clear, interpretable ML model
+---
 
-## Categorical Features in the Dataset
+## <span style="font-size: 0.8em;">Categorical Features in the Dataset</span>
 
 <p style="font-size: 0.70em; text-align: center; color: #444;">
 This chart reveals how categorical variables like anemia, appetite, and diabetes are distributed across the patient records — helping us understand the clinical profiles common in CKD cases.
 </p>
 
 ```{python}
+#| label: Distribution-of-Categorical-Features
+
 import warnings
 warnings.filterwarnings("ignore")
 
 categorical = categorical.drop(columns='class')
 
 sns.set_style("whitegrid")
-plt.rcParams['axes.facecolor'] = 'none'   
-plt.rcParams['figure.facecolor'] = 'none' 
+plt.rcParams['axes.facecolor'] = 'none'
+plt.rcParams['figure.facecolor'] = 'none'
 plt.figure(figsize=(20, 18))
 
 for i, col_name in enumerate(categorical.columns, start=1):
@@ -272,4 +243,149 @@ plt.show()
 
 ```
 
+---
+
+```{python}
+#| label: Distribution-of-numerical-Features
+
+numerical = disease.select_dtypes(include=['float64', 'int64'])
+numerical = numerical.drop(columns=['class','specific_gravity', 'packed_cell_volume'])
+
+disease['class_label'] = disease['class'].map({1: 'CKD', 0: 'Non-CKD'})
+
+custom_palette = {'CKD': '#e74c3c', 'Non-CKD': '#2ecc71'}
+
+cols = 6
+rows = (len(numerical.columns) + cols - 1) // cols
+
+plt.figure(figsize=(30, rows * 5))
+sns.set_style("whitegrid")
+plt.rcParams['axes.facecolor'] = 'none'
+plt.rcParams['figure.facecolor'] = 'none'
+
+# Define custom x-limits for specific columns
+xlimits = {
+    'serum_creatinine': (0, 25),
+    'sodium': (80, 180),
+    'potassium': (0, 15),
+}
+
+for i, col in enumerate(numerical.columns, 1):
+    plt.subplot(rows, cols, i)
+    sns.histplot(data=disease, x=col, kde=True, hue="class_label", palette=custom_palette, legend=False)
+    plt.title(col.replace('_', ' ').capitalize(), fontsize=16)
+    plt.ylabel("Count", fontsize=14)                              # Add y-label
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+    
+    # Apply custom x-axis range if defined
+    if col in xlimits:
+        plt.xlim(xlimits[col])
+
+# Add a single legend
+import matplotlib.patches as mpatches
+ckd_patch = mpatches.Patch(color=custom_palette['CKD'], label='CKD')
+nonckd_patch = mpatches.Patch(color=custom_palette['Non-CKD'], label='Non-CKD')
+plt.figlegend(handles=[ckd_patch, nonckd_patch], loc='upper left', ncol=2, fontsize=12, title="CKD Status")
+
+# Titles and layout
+plt.suptitle("Distribution of Key Numerical Features by CKD Class", fontsize=20, fontweight='bold', y=0.98)
+plt.tight_layout()
+plt.subplots_adjust(bottom=0.1, hspace=0.5)
+
+plt.savefig("numerical_distribution.png")
+plt.close()
+
+```
+
+## <span style="font-size: 0.8em;">Key Clinical Indicators in Patients</span>
+
+<p style="font-size: 0.60em; text-align: center; color: #444;">
+This chart displays the distribution of key clinical variables for CKD and non-CKD patients. 
+</p>
+
+![](numerical_distribution.png){width=95% fig-align="center"}
+
+<p style="font-size: 0.70em; text-align: center; color: #444;">Common Observations from Routine Health Tests</p>
+
+<p style="font-size: 0.60em; text-align: left; color: #444; line-height: 1.6em;">
+🔹 <strong>Hemoglobin:</strong> Levels persistently <strong>< 10–11 g/dL</strong> may indicate risk of kidney dysfunction.   
+🔹 <strong>Blood Pressure:</strong> Sustained values > <strong>130/80</strong> mmHg along with abnormal labs suggest kidney function tests may be needed.  
+🔹 <strong>Sugar & Albumin:</strong> Elevated blood sugar hints at diabetes risk. Increased albumin in urine (proteinuria) is an early CKD indicator.
+</p>
+
+---
+
+## <span style="font-size: 0.8em;">Exploring Feature Relationships in CKD Patients </span>
+
+<p style="font-size: 0.50em; text-align: center; color: #444;">
+These plots highlight clinical feature pairs that are strongly correlated and vary by CKD status.The separation of CKD vs non-CKD patients in these pairs reveals underlying clinical patterns that can support early detection and diagnosis.
+</p>
+
+```{python}
+#| label: Correlated-Feature-Pairs
+#| fig-align: center
+
+pairs = [
+    ('haemoglobin', 'packed_cell_volume'),
+    ('packed_cell_volume', 'red_blood_cell_count'),
+    ('haemoglobin', 'red_blood_cell_count'),
+    ('sugar', 'blood_glucose_random'),
+    ('blood_urea', 'red_blood_cell_count'),
+    ('blood_urea', 'haemoglobin'),
+    ('albumin', 'haemoglobin'),
+    ('serum_creatinine', 'sodium')
+]
+
+# Map class values to readable labels
+disease['class_label'] = disease['class'].map({0: 'CKD', 1: 'Non-CKD'})
+
+sns.set_theme(style="whitegrid", palette="viridis")
+plt.rcParams['axes.facecolor'] = 'none'
+plt.rcParams['figure.facecolor'] = 'none'
+
+n = len(pairs)
+rows = (n + 1) // 2
+
+# Create figure and axes
+fig, axes = plt.subplots(rows, 4, figsize=(20, rows * 4))
+axes = axes.flatten()
+
+# Placeholder for handles and labels
+handles, labels = None, None
+
+for i, (x, y) in enumerate(pairs):
+    ax = axes[i]
+    if x in disease.columns and y in disease.columns:
+        # Plot with legend only once (first valid pair)
+        scatter = sns.scatterplot(data=disease, x=x, y=y, hue='class_label',
+                                  palette='Set1', alpha=0.8, s=60, ax=ax, legend=(handles is None))
+        sns.regplot(data=disease, x=x, y=y, scatter=False,
+                    color='black', line_kws={"linewidth": 2, "linestyle": "--"}, ax=ax)
+
+        # Save handles for legend once
+        if handles is None:
+            handles, labels = scatter.get_legend_handles_labels()
+
+        # Title and labels
+        corr_val = disease[[x, y]].dropna().corr().iloc[0, 1]
+        ax.set_title(f"{x.replace('_', ' ').capitalize()} vs {y.replace('_', ' ').capitalize()}\n(r = {corr_val:.2f})", fontsize=16)
+        ax.set_xlabel(x.replace('_', ' ').capitalize(), fontsize=14)
+        ax.set_ylabel(y.replace('_', ' ').capitalize(), fontsize=14)
+
+# Remove any unused subplots
+for j in range(i + 1, len(axes)):
+    fig.delaxes(axes[j])
+
+# Add shared legend if we captured one
+if handles and labels:
+    fig.legend(handles, labels, loc='upper right', ncol=2, fontsize=12, title="CKD Status")
+
+# Super title and spacing
+plt.suptitle('CKD Dataset – Strongly Correlated Feature Pairs with Class Highlighting', fontsize=20, y=1.03)
+plt.tight_layout()
+plt.subplots_adjust(top=0.92, bottom=0.12)
+plt.show()
+
+```
 

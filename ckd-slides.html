@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.5.56">
 
   <meta name="author" content="Shreemithra Naveen and Sai Laasya Gorantla">
-  <meta name="dcterms.date" content="2025-04-01">
+  <meta name="dcterms.date" content="2025-04-17">
   <title>Predicting Chronic Kidney Disease</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -326,7 +326,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="images/background_image1.png" data-background-opacity="0.8" data-background-size="cover" class="quarto-title-block center">
+<section id="title-slide" data-background-image="images/background_image1.png" data-background-opacity="0.6" data-background-size="cover" class="quarto-title-block center">
   <h1 class="title">Predicting Chronic Kidney Disease</h1>
   <p class="subtitle">with Machine Learning &amp; Visual Analytics</p>
 
@@ -338,7 +338,7 @@ Shreemithra Naveen and Sai Laasya Gorantla
 </div>
 </div>
 
-  <p class="date">2025-04-01</p>
+  <p class="date">2025-04-17</p>
 </section>
 <section id="project-overview" class="slide level2 center">
 <h2>Project Overview</h2>
@@ -365,11 +365,11 @@ CKD often has no symptoms in early stages — making it a “silent disease”.B
 <!-- lower half text -->
 <div class="columns">
 <div class="column" style="width:50%;">
-<div id="017e99a6" class="cell" data-execution_count="4">
+<div id="cell-piechart-ckdvsnoncks" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="ckd-slides_files/figure-revealjs/cell-5-output-1.png"></p>
+<p><img data-src="ckd-slides_files/figure-revealjs/piechart-ckdvsnoncks-output-1.png" id="piechart-ckdvsnoncks"></p>
 </figure>
 </div>
 </div>
@@ -378,11 +378,11 @@ CKD often has no symptoms in early stages — making it a “silent disease”.B
 <b>U.S. Perspective:</b><br> 9 out of 10 people with CKD are unaware they have it.<br> <em>— American Kidney Fund</em>
 </p>
 </div><div class="column" style="width:50%;">
-<div id="74f426f4" class="cell" data-execution_count="5">
+<div id="cell-piechart-terminalstage" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="ckd-slides_files/figure-revealjs/cell-6-output-1.png"></p>
+<p><img data-src="ckd-slides_files/figure-revealjs/piechart-terminalstage-output-1.png" id="piechart-terminalstage"></p>
 </figure>
 </div>
 </div>
@@ -398,41 +398,62 @@ and 75% had never heard of CKD before hospitalization.<br> <em>— Brazzaville H
 </section></section>
 <section>
 <section id="why-early-detection-matters" class="title-slide slide level1 center">
-<h1>Why Early Detection Matters</h1>
-
+<h1><span style="font-size: 0.6em;">Why Early Detection Matters?</span></h1>
+<p style="text-align: center; font-size: 0.70em; color: #444;">
+That’s why we decided to build a <b>machine learning model</b> to assist in <b>early detection of CKD</b>, even during routine checkups — helping patients become aware of their symptoms and risks <b>before it’s too late</b><br>
+</p>
+<p style="text-align: center; font-size: 0.60em; color: #444;">
+<b>Early detection enables:</b><br> - Slowing or halting disease progression<br> - Improved quality of life<br> - Reduced need for dialysis or transplant<br>
+</p>
 </section>
-<section class="slide level2">
-
-<p>That’s why we decided to build a <strong>machine learning model</strong> to assist in <strong>early detection of CKD</strong>, even during routine checkups — helping patients become aware of their symptoms and risks <strong>before it’s too late</strong>.</p>
+<section id="dataset-overview" class="slide level2">
+<h2><span style="font-size: 0.8em;">Dataset Overview</span></h2>
+<p style="text-align: center; font-size: 0.60em; color: #444;">
+</p><ul>
+<li>Dataset: Chronic Kidney Disease dataset from <a href="https://www.kaggle.com/datasets/mansoordaku/ckdisease">Kaggle</a><br>
 <ul>
-<li>Early detection enables:
-<ul>
-<li>Slowing or halting disease progression<br>
-</li>
-<li>Improved quality of life<br>
-</li>
-<li>Reduced need for dialysis or transplant</li>
+<li>400 patient records with 26 clinical features<br></li>
+<li>Target variable: <code>class</code> → CKD or not CKD<br></li>
 </ul></li>
 </ul>
-</section>
-<section id="dataset-overview" class="slide level2 center">
-<h2>Dataset Overview</h2>
-<ul>
-<li><p>Dataset: Chronic Kidney Disease dataset from <a href="https://www.kaggle.com/datasets/mansoordaku/ckdisease">Kaggle</a></p></li>
-<li><p>400 patient records with 26 clinical features</p></li>
-<li><p>Target variable: <code>class</code> → CKD or not CKD</p></li>
-<li><p>Includes essential CKD indicators: albumin, creatinine, hemoglobin, BP</p></li>
-<li><p>One of the few public datasets with complete labels + clinical features</p></li>
-<li><p>Ideal for building a clear, interpretable ML model</p></li>
+<p></p>
+<p style="text-align: center; font-size: 0.40em; color: #444;">
+</p><ul>
+<li>Includes essential CKD indicators: albumin, creatinine, hemoglobin, BP<br></li>
+<li>One of the few public datasets with complete labels + clinical features<br></li>
+<li>Ideal for building a clear, interpretable ML model<br></li>
 </ul>
+<p></p>
 </section>
 <section id="categorical-features-in-the-dataset" class="slide level2">
-<h2>Categorical Features in the Dataset</h2>
+<h2><span style="font-size: 0.8em;">Categorical Features in the Dataset</span></h2>
 <p style="font-size: 0.70em; text-align: center; color: #444;">
 This chart reveals how categorical variables like anemia, appetite, and diabetes are distributed across the patient records — helping us understand the clinical profiles common in CKD cases.
 </p>
 
-<img data-src="ckd-slides_files/figure-revealjs/cell-7-output-1.png" class="r-stretch"><div class="quarto-auto-generated-content">
+<img data-src="ckd-slides_files/figure-revealjs/distribution-of-categorical-features-output-1.png" id="distribution-of-categorical-features" class="r-stretch"></section>
+<section id="key-clinical-indicators-in-patients" class="slide level2">
+<h2><span style="font-size: 0.8em;">Key Clinical Indicators in Patients</span></h2>
+<p style="font-size: 0.60em; text-align: center; color: #444;">
+This chart displays the distribution of key clinical variables for CKD and non-CKD patients.
+</p>
+
+<img data-src="numerical_distribution.png" class="quarto-figure quarto-figure-center r-stretch" style="width:95.0%"><p style="font-size: 0.70em; text-align: center; color: #444;">
+Common Observations from Routine Health Tests
+</p>
+<p style="font-size: 0.60em; text-align: left; color: #444; line-height: 1.6em;">
+🔹 <strong>Hemoglobin:</strong> Levels persistently <strong>&lt; 10–11 g/dL</strong> may indicate risk of kidney dysfunction.<br>
+🔹 <strong>Blood Pressure:</strong> Sustained values &gt; <strong>130/80</strong> mmHg along with abnormal labs suggest kidney function tests may be needed.<br>
+🔹 <strong>Sugar &amp; Albumin:</strong> Elevated blood sugar hints at diabetes risk. Increased albumin in urine (proteinuria) is an early CKD indicator.
+</p>
+</section>
+<section id="exploring-feature-relationships-in-ckd-patients" class="slide level2">
+<h2><span style="font-size: 0.8em;">Exploring Feature Relationships in CKD Patients </span></h2>
+<p style="font-size: 0.50em; text-align: center; color: #444;">
+These plots highlight clinical feature pairs that are strongly correlated and vary by CKD status.The separation of CKD vs non-CKD patients in these pairs reveals underlying clinical patterns that can support early detection and diagnosis.
+</p>
+
+<img data-src="ckd-slides_files/figure-revealjs/correlated-feature-pairs-output-1.png" id="correlated-feature-pairs" class="quarto-figure quarto-figure-center r-stretch"><div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
