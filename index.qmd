@@ -1,0 +1,133 @@
+---
+title: "Predicting Chronic Kidney Disease"
+subtitle: "with Machine Learning & Visual Analytics"
+author: 
+  - name: "Shreemithra Naveen and Sai Laasya Gorantla"
+description: "A machine learning model for early CKD prediction using basic clinical features. We cleaned and explored the dataset, compared KNN, Decision Tree, and SVM models, and selected the most accurate and interpretable approach for potential clinical application."
+format:
+  html:
+    toc: true
+    code-tools: true
+    toc-depth: 2
+    theme: serif
+    code-overflow: wrap
+    embed-resources: true
+editor: visual
+execute:
+  warning: false
+  echo: false
+jupyter: python3
+---
+
+# Overview
+
+This project investigates how **machine learning** can support early detection of **Chronic Kidney Disease (CKD)** using routine clinical data.
+
+We focused on building a model that is:
+- Clinically **interpretable**
+- Predictively **accurate**
+- **Accessible** through visual analytics
+
+The final Decision Tree model achieved ~99% accuracy using just **five key health features**, supporting its usability in real-world healthcare workflows.
+
+---
+
+# Abstract
+Chronic Kidney Disease (CKD) is a silent condition affecting 1 in 10 individuals globally. This project explores the application of machine learning models for early CKD prediction using routine clinical features. We used a publicly available dataset and focused on building an interpretable and accurate model. After evaluating K-Nearest Neighbors (KNN), Support Vector Machines (SVM), and Decision Trees (DT), we selected the Decision Tree model for its transparency and strong performance (~99% accuracy). Our findings are supported with visual analytics to communicate results effectively for clinical use.
+
+---
+
+# Literature Review
+
+Chronic Kidney Disease (CKD) remains a global health concern, affecting over 10% of the population worldwide [1]. Traditional diagnosis relies heavily on invasive tests and delayed symptom recognition, prompting the need for earlier and data-driven interventions. Studies have shown that machine learning (ML) can play a pivotal role in health diagnostics by enabling early detection from routinely collected health data [2].
+
+:::{.columns}
+
+::: {.column width="50%"}
+
+```{python}
+#| label: piechart-ckdvsnoncks
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+import random
+
+labels = ['Unaware of CKD', 'Aware of CKD']
+sizes = [90, 10]
+colors = ['#f4a261', '#2a9d8f']
+fig, ax = plt.subplots(figsize=(3.8, 3.8), facecolor='none')
+ax.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
+ax.set_facecolor('none')   
+plt.axis('equal')          
+plt.tight_layout()
+plt.show()
+```
+
+<p style="text-align: center; font-size: 0.70em; color: #444;">
+<b>U.S. Perspective:</b><br>
+9 out of 10 people with CKD are unaware they have it.<br>
+<em>— American Kidney Fund</em>
+</p>
+
+:::
+
+::: {.column width="50%"}
+
+```{python}
+#| label: piechart-terminalstage
+
+labels = ['Terminal Stage', 'Early Stage']
+sizes = [72.5, 27.5]
+colors = ['#ba2f2f', '#87ceeb']
+
+fig, ax = plt.subplots(figsize=(5, 5), facecolor='none')
+ax.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
+ax.set_facecolor('none')
+plt.axis('equal')
+plt.tight_layout()
+plt.show()
+```
+
+<p style="text-align: center; font-size: 0.70em; color: #444;">
+<b>Global Perspective:</b><br>
+72.5% of patients were diagnosed at the terminal stage,  
+and 75% had never heard of CKD before hospitalization.<br>
+<em>— Brazzaville Hospital Study</em>
+</p>
+
+:::
+
+:::
+
+Previous works such as [3] employed logistic regression and support vector machines for CKD classification, often prioritizing accuracy over interpretability. However, interpretability is essential in clinical contexts where decisions affect patient outcomes. Models like Decision Trees offer a transparent view of feature importance and thresholds, which aligns well with diagnostic logic used by practitioners.
+
+Furthermore, research from the WHO and American Kidney Fund emphasizes the role of basic markers—hemoglobin, albumin, serum creatinine—as early indicators of CKD progression [1][4]. Building on these insights, we explored models that prioritize both accuracy and clinical transparency using five selected features commonly available from standard lab tests.
+
+---
+
+# Project Highlights
+
+- **EDA:** Key visualizations for CKD/non-CKD comparisons  
+- **Models:** Compared KNN, SVM, and Decision Tree  
+- **Final Model:** Chose Decision Tree for performance + interpretability  
+- **Visualization:** Confusion matrix, radar chart, heatmap
+
+---
+
+# Project Files
+
+- [Final Project Report](final-report.pdf)  
+- [Interactive Slides](ckd-slides.html)  
+- [GitHub Repository](https://github.com/shreemithran/ckd-diagnosis-visualized)
+
+---
+
+# Tech Stack
+
+- **Python:** pandas, seaborn, matplotlib, scikit-learn  
+- **Models:** Decision Tree, KNN, SVM (RBF Kernel)  
+- **Tools:** Quarto, Jupyter, GitHub
+
+---
