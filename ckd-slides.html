@@ -606,9 +606,6 @@ Recall
 <th style="padding: 8px; border: 1px solid #ccc;">
 F1-Score
 </th>
-<th style="padding: 8px; border: 1px solid #ccc;">
-Strengths
-</th>
 </tr>
 </thead>
 <tbody>
@@ -628,9 +625,6 @@ SVM (RBF Kernel)
 <td style="padding: 8px; border: 1px solid #ccc;">
 0.90
 </td>
-<td style="padding: 8px; border: 1px solid #ccc;">
-Handles non-linear patterns well
-</td>
 </tr>
 <tr>
 <td style="padding: 8px; border: 1px solid #ccc;">
@@ -647,9 +641,6 @@ K-Nearest Neighbors
 </td>
 <td style="padding: 8px; border: 1px solid #ccc;">
 0.95
-</td>
-<td style="padding: 8px; border: 1px solid #ccc;">
-Simple and effective with clear class boundaries
 </td>
 </tr>
 <tr style="background-color: #e8f5e9;">
@@ -668,9 +659,6 @@ Simple and effective with clear class boundaries
 <td style="padding: 8px; border: 1px solid #ccc;">
 <b>0.99</b>
 </td>
-<td style="padding: 8px; border: 1px solid #ccc;">
-<b>Highly interpretable and accurate</b>
-</td>
 </tr>
 </tbody>
 </table>
@@ -681,8 +669,27 @@ Based on accuracy and interpretability, <b>Decision Tree</b> was chosen as our f
 </p>
 </div>
 </section>
-<section id="confusion-matrix-knn-vs-decision-tree" class="slide level2">
-<h2><span style="font-size: 0.8em;">Confusion Matrix: KNN vs Decision Tree</span></h2>
+<section id="model-comparison-accuracy-f1-score-interpretability" class="slide level2">
+<h2><span style="font-size: 0.6em;">Model Comparison: Accuracy, F1-Score &amp; Interpretability</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div id="216c8137" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="ckd-slides_files/figure-revealjs/cell-12-output-1.png"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p style="font-size: 70%; color: #444;">
+<strong>Decision Tree</strong> leads with perfect accuracy and interpretability, making it ideal for clinical deployment. <br> <strong>KNN</strong> performs well and is simple, but less interpretable than DT in complex cases. <br> <strong>SVM</strong> offers good predictive power, but its lack of transparency limits its usefulness in healthcare.<br> Overall, Decision Tree balances performance and explainability — perfect for medical use-cases.
+</p>
+</div></div>
+</section>
+<section id="confusion-matrix-knn-vs-decision-tree-vs-svm" class="slide level2">
+<h2><span style="font-size: 0.8em;">Confusion Matrix: KNN vs Decision Tree vs SVM</span></h2>
 <p><br></p>
 
 <img data-src="ckd-slides_files/figure-revealjs/confusion-matrix-plot-output-1.png" id="confusion-matrix-plot" class="quarto-figure quarto-figure-center r-stretch"><p><br></p>

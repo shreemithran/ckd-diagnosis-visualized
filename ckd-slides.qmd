@@ -548,7 +548,6 @@ From this, we learned that while all models had strengths, <b>Decision Tree</b> 
       <th style="padding: 8px; border: 1px solid #ccc;">Precision</th>
       <th style="padding: 8px; border: 1px solid #ccc;">Recall</th>
       <th style="padding: 8px; border: 1px solid #ccc;">F1-Score</th>
-      <th style="padding: 8px; border: 1px solid #ccc;">Strengths</th>
     </tr>
   </thead>
   <tbody>
@@ -558,7 +557,6 @@ From this, we learned that while all models had strengths, <b>Decision Tree</b> 
       <td style="padding: 8px; border: 1px solid #ccc;">0.90</td>
       <td style="padding: 8px; border: 1px solid #ccc;">0.91</td>
       <td style="padding: 8px; border: 1px solid #ccc;">0.90</td>
-      <td style="padding: 8px; border: 1px solid #ccc;">Handles non-linear patterns well</td>
     </tr>
     <tr>
       <td style="padding: 8px; border: 1px solid #ccc;">K-Nearest Neighbors</td>
@@ -566,7 +564,6 @@ From this, we learned that while all models had strengths, <b>Decision Tree</b> 
       <td style="padding: 8px; border: 1px solid #ccc;">0.94</td>
       <td style="padding: 8px; border: 1px solid #ccc;">0.95</td>
       <td style="padding: 8px; border: 1px solid #ccc;">0.95</td>
-      <td style="padding: 8px; border: 1px solid #ccc;">Simple and effective with clear class boundaries</td>
     </tr>
     <tr style="background-color: #e8f5e9;">
       <td style="padding: 8px; border: 1px solid #ccc;"><b>Decision Tree </b></td>
@@ -574,7 +571,6 @@ From this, we learned that while all models had strengths, <b>Decision Tree</b> 
       <td style="padding: 8px; border: 1px solid #ccc;"><b>0.99</b></td>
       <td style="padding: 8px; border: 1px solid #ccc;"><b>0.98</b></td>
       <td style="padding: 8px; border: 1px solid #ccc;"><b>0.99</b></td>
-      <td style="padding: 8px; border: 1px solid #ccc;"><b>Highly interpretable and accurate</b></td>
     </tr>
   </tbody>
 </table>
@@ -587,7 +583,73 @@ From this, we learned that while all models had strengths, <b>Decision Tree</b> 
 
 ---
 
-## <span style="font-size: 0.8em;">Confusion Matrix: KNN vs Decision Tree</span>
+## <span style="font-size: 0.6em;">Model Comparison: Accuracy, F1-Score & Interpretability</span>
+
+:::{.columns} 
+
+::: {.column width="50%"}
+
+```{python}
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Define model metrics
+labels = ['Accuracy', 'F1 Score', 'Interpretability']
+num_vars = len(labels)
+
+# Normalized scores (0–10 scale)
+knn = [9.5, 9.5, 8]
+dt = [10, 10, 10]
+svm = [9.1, 9.0, 4]
+
+# Prepare data
+data = [knn, dt, svm]
+model_names = ['KNN', 'Decision Tree', 'SVM (RBF)']
+colors = ['#1f77b4', '#2ca02c', '#d62728']
+angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
+angles += angles[:1]
+
+# Close the polygon
+for i in range(len(data)):
+    data[i] += data[i][:1]
+
+# Radar chart
+fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True))
+
+for i, d in enumerate(data):
+    ax.plot(angles, d, color=colors[i], linewidth=2, label=model_names[i])
+    ax.fill(angles, d, color=colors[i], alpha=0.25)
+
+ax.set_theta_offset(np.pi / 2)
+ax.set_theta_direction(-1)
+ax.set_thetagrids(np.degrees(angles[:-1]), labels)
+ax.set_ylim(0, 10)
+ax.set_title("Model Comparison Radar Chart", fontsize=16, weight='bold', y=1.08)
+ax.legend(loc='upper right', bbox_to_anchor=(1.2, 1.1))
+
+plt.tight_layout()
+plt.show()
+
+```
+
+:::
+
+::: {.column width="50%"}
+
+<p style="font-size: 70%; color: #444;"> <strong>Decision Tree</strong> leads with perfect accuracy and interpretability, making it ideal for clinical deployment. <br>
+<strong>KNN</strong> performs well and is simple, but less interpretable than DT in complex cases. <br>
+<strong>SVM</strong> offers good predictive power, but its lack of transparency limits its usefulness in healthcare.<br>
+Overall, Decision Tree balances performance and explainability — perfect for medical use-cases.
+</p>
+
+:::
+
+:::
+
+---
+
+## <span style="font-size: 0.8em;">Confusion Matrix: KNN vs Decision Tree vs SVM</span>
 
 <br>
 
@@ -680,4 +742,5 @@ Presented by: <strong>Shreemithra Naveen</strong> & <strong>Sai Laasya Gorantla<
 <br>
 INFO 511 – University of Arizona | April 2025
 </p>
+
 
