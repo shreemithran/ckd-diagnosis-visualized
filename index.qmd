@@ -57,14 +57,15 @@ import random
 labels = ['Unaware of CKD', 'Aware of CKD']
 sizes = [90, 10]
 colors = ['#f4a261', '#2a9d8f']
-fig, ax = plt.subplots(figsize=(3.8, 3.8), facecolor='none')
+fig, ax = plt.subplots(figsize=(3.5, 3.5), facecolor='none')
 ax.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
 ax.set_facecolor('none')   
 plt.axis('equal')          
 plt.tight_layout()
 plt.show()
 ```
-
+<br>
+<br>
 <p style="text-align: center; font-size: 0.70em; color: #444;">
 <b>U.S. Perspective:</b><br>
 9 out of 10 people with CKD are unaware they have it.<br>
@@ -82,7 +83,7 @@ labels = ['Terminal Stage', 'Early Stage']
 sizes = [72.5, 27.5]
 colors = ['#ba2f2f', '#87ceeb']
 
-fig, ax = plt.subplots(figsize=(5, 5), facecolor='none')
+fig, ax = plt.subplots(figsize=(4, 4), facecolor='none')
 ax.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
 ax.set_facecolor('none')
 plt.axis('equal')
@@ -115,6 +116,14 @@ Furthermore, research from the WHO and American Kidney Fund emphasizes the role 
 - **Visualization:** Confusion matrix, radar chart, heatmap
 
 ---
+
+# Exploratory Data Analysis 
+
+- **Data Overview**
+   
+
+
+
 
 # Project Files
 
